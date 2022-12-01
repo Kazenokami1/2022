@@ -6,11 +6,9 @@ import (
 	"os"
 	"sort"
 	"strconv"
-	"time"
 )
 
 func Day1() {
-	start := time.Now()
 	var fileName string
 	if os.Getenv("MODE") == "TEST" {
 		fileName = "inputfiles/Day1Sample.txt"
@@ -49,6 +47,7 @@ func Day1() {
 			highestCalories = elf.totalCalories
 		}
 	}
+	fmt.Println("DAY1 Puzzle Solutions:")
 	fmt.Printf("Highest Elf has %d calories", highestCalories)
 	fmt.Println()
 	var totalCaloriesPerElf []int
@@ -62,9 +61,6 @@ func Day1() {
 	}
 	fmt.Printf("Total Calories carried by top 3 elves is %d", top3Calories)
 	fmt.Println()
-	duration := time.Since(start)
-	fmt.Print("Time Since Start: ")
-	fmt.Println(duration)
 }
 
 func check(e error) {

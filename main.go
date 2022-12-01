@@ -9,10 +9,10 @@ import (
 
 func main() {
 	start := time.Now()
-	duration := time.Since(start)
 	d := Days{}
 	dMethod := reflect.ValueOf(d).MethodByName(os.Getenv("DAYTORUN"))
 	dMethod.Call(nil)
+	duration := time.Since(start)
 	fmt.Print("Time Since Start: ")
 	fmt.Println(duration)
 }
