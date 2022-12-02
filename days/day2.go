@@ -7,7 +7,6 @@ import (
 )
 
 func Day2() {
-	part1results := makeResults("Part1")
 	var fileName string
 	if os.Getenv("MODE") == "TEST" {
 		fileName = "inputfiles/Day2Sample.txt"
@@ -24,14 +23,17 @@ func Day2() {
 		games = append(games, scanner.Text())
 	}
 
+	part1results := makeResults(1)
 	var totalScore int
 	for _, game := range games {
 		totalScore += play(part1results[game], game[0])
 	}
+	fmt.Println("Day2 Puzzle Solutions:")
 	fmt.Printf("Total Score Part 1: %d", totalScore)
 	fmt.Println()
+
 	totalScore = 0
-	part2results := makeResults("Part2")
+	part2results := makeResults(2)
 	for _, game := range games {
 		totalScore += play(part2results[string(game[2])], game[0])
 	}
@@ -69,9 +71,9 @@ func play(result string, opp byte) int {
 	return 0
 }
 
-func makeResults(part string) map[string]string {
+func makeResults(part int) map[string]string {
 	results := make(map[string]string)
-	if part == "Part1" {
+	if part == 1 {
 		results["A X"] = "draw"
 		results["A Y"] = "win"
 		results["A Z"] = "loss"
@@ -81,7 +83,7 @@ func makeResults(part string) map[string]string {
 		results["C X"] = "win"
 		results["C Y"] = "loss"
 		results["C Z"] = "draw"
-	} else if part == "Part2" {
+	} else if part == 2 {
 		results["X"] = "loss"
 		results["Y"] = "draw"
 		results["Z"] = "win"
