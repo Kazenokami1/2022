@@ -6,6 +6,34 @@ import (
 	"os"
 )
 
+var scores = make(map[string]int)
+var part1results = make(map[string]string)
+var part2results = make(map[byte]string)
+
+func init() {
+	scores["lossA"] = 3
+	scores["drawA"] = 4
+	scores["winA"] = 8
+	scores["lossB"] = 1
+	scores["drawB"] = 5
+	scores["winB"] = 9
+	scores["lossC"] = 2
+	scores["drawC"] = 6
+	scores["winC"] = 7
+	part1results["A X"] = "draw"
+	part1results["A Y"] = "win"
+	part1results["A Z"] = "loss"
+	part1results["B X"] = "loss"
+	part1results["B Y"] = "draw"
+	part1results["B Z"] = "win"
+	part1results["C X"] = "win"
+	part1results["C Y"] = "loss"
+	part1results["C Z"] = "draw"
+	part2results['X'] = "loss"
+	part2results['Y'] = "draw"
+	part2results['Z'] = "win"
+}
+
 func Day2() {
 	var fileName string
 	if os.Getenv("MODE") == "TEST" {
@@ -22,71 +50,18 @@ func Day2() {
 	for scanner.Scan() {
 		games = append(games, scanner.Text())
 	}
-
-	part1results := makeResults(1)
 	var totalScore int
 	for _, game := range games {
-		totalScore += play(part1results[game], game[0])
+		totalScore += scores[part1results[game]+string(game[0])]
 	}
 	fmt.Println("Day2 Puzzle Solutions:")
 	fmt.Printf("Total Score Part 1: %d", totalScore)
 	fmt.Println()
 
 	totalScore = 0
-	part2results := makeResults(2)
 	for _, game := range games {
-		totalScore += play(part2results[string(game[2])], game[0])
+		totalScore += scores[part2results[game[2]]+string(game[0])]
 	}
 	fmt.Printf("Total Score Part 2: %d", totalScore)
 	fmt.Println()
-}
-
-func play(result string, opp byte) int {
-	switch result {
-	case "loss":
-		if opp == 'A' {
-			return 3
-		} else if opp == 'B' {
-			return 1
-		} else if opp == 'C' {
-			return 2
-		}
-	case "draw":
-		if opp == 'A' {
-			return 4
-		} else if opp == 'B' {
-			return 5
-		} else if opp == 'C' {
-			return 6
-		}
-	case "win":
-		if opp == 'A' {
-			return 8
-		} else if opp == 'B' {
-			return 9
-		} else if opp == 'C' {
-			return 7
-		}
-	}
-	return 0
-}
-
-func makeResults(part int) map[string]string {
-	results := make(map[string]string)
-	if part == 1 {
-		results["A X"] = "draw"
-		results["A Y"] = "win"
-		results["A Z"] = "loss"
-		results["B X"] = "loss"
-		results["B Y"] = "draw"
-		results["B Z"] = "win"
-		results["C X"] = "win"
-		results["C Y"] = "loss"
-		results["C Z"] = "draw"
-	} else if part == 2 {
-		results["X"] = "loss"
-		results["Y"] = "draw"
-		results["Z"] = "win"
-	}
-	return results
 }
