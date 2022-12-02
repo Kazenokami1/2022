@@ -47,7 +47,7 @@ func Day1() {
 			highestCalories = elf.totalCalories
 		}
 	}
-	fmt.Println("DAY1 Puzzle Solutions:")
+	fmt.Println("Day1 Puzzle Solutions:")
 	fmt.Printf("Highest Elf has %d calories", highestCalories)
 	fmt.Println()
 	var totalCaloriesPerElf []int
