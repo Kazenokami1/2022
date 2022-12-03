@@ -10,3 +10,9 @@ func (e *elf) calcTotalCalories() {
 		e.totalCalories += meal
 	}
 }
+
+type rucksack struct {
+	Compartment1 string
+	Compartment2 string
+	Items        string
+}
