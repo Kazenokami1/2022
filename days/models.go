@@ -1,8 +1,10 @@
 package days
 
 type elf struct {
-	meals         []int
-	totalCalories int
+	meals               []int
+	totalCalories       int
+	cleaningSectorStart int
+	cleaningSectorEnd   int
 }
 
 func (e *elf) calcTotalCalories() {

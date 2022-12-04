@@ -24,7 +24,7 @@ func Day3() {
 		fileName = "inputfiles/Day3.txt"
 	}
 	f, err := os.Open(fileName)
-	check(err)
+	Check(err)
 	defer f.Close()
 
 	var rucksacks []rucksack

@@ -42,7 +42,7 @@ func Day2() {
 		fileName = "inputfiles/Day2.txt"
 	}
 	f, err := os.Open(fileName)
-	check(err)
+	Check(err)
 	defer f.Close()
 
 	var games []string

@@ -16,7 +16,7 @@ func Day1() {
 		fileName = "inputfiles/Day1.txt"
 	}
 	f, err := os.Open(fileName)
-	check(err)
+	Check(err)
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
@@ -25,7 +25,7 @@ func Day1() {
 	for scanner.Scan() {
 		if scanner.Text() != "" {
 			meal, err := strconv.Atoi(scanner.Text())
-			check(err)
+			Check(err)
 			meals = append(meals, meal)
 		} else {
 			var elf elf
@@ -61,10 +61,4 @@ func Day1() {
 	}
 	fmt.Printf("Total Calories carried by top 3 elves is %d", top3Calories)
 	fmt.Println()
-}
-
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
 }
