@@ -8,23 +8,6 @@ import (
 	"strings"
 )
 
-var stacksInput = make(map[int][]string)
-
-func initializeStacks() {
-	/*stacksInput[1] = []string{"Z", "N"}
-	stacksInput[2] = []string{"M", "C", "D"}
-	stacksInput[3] = []string{"P"}*/
-	stacksInput[1] = []string{"S", "L", "W"}
-	stacksInput[2] = []string{"J", "T", "N", "Q"}
-	stacksInput[3] = []string{"S", "C", "H", "F", "J"}
-	stacksInput[4] = []string{"T", "R", "M", "W", "N", "G", "B"}
-	stacksInput[5] = []string{"T", "R", "L", "S", "D", "H", "Q", "B"}
-	stacksInput[6] = []string{"M", "J", "B", "V", "F", "H", "R", "L"}
-	stacksInput[7] = []string{"D", "W", "R", "N", "J", "M"}
-	stacksInput[8] = []string{"B", "Z", "T", "F", "H", "N", "D", "J"}
-	stacksInput[9] = []string{"H", "L", "Q", "N", "B", "F", "T"}
-}
-
 func Day5() {
 	var fileName string
 	if os.Getenv("MODE") == "TEST" {
@@ -36,19 +19,32 @@ func Day5() {
 	Check(err)
 	defer f.Close()
 
-	initializeStacks()
-
 	scanner := bufio.NewScanner(f)
+	stacksInput := make(map[int][]string)
 	var instructions []CrateInstructions
 	for scanner.Scan() {
-		stringInts := strings.Split(scanner.Text(), " ")
-		numberOfCrates, err := strconv.Atoi(stringInts[1])
-		Check(err)
-		originStack, err := strconv.Atoi(stringInts[3])
-		Check(err)
-		destinationStack, err := strconv.Atoi(stringInts[5])
-		Check(err)
-		instructions = append(instructions, CrateInstructions{NumberOfCrates: numberOfCrates, OriginStack: originStack, DestinationStack: destinationStack})
+		if strings.Split(scanner.Text(), " ")[0] == "move" {
+			stringInts := strings.Split(scanner.Text(), " ")
+			numberOfCrates, err := strconv.Atoi(stringInts[1])
+			Check(err)
+			originStack, err := strconv.Atoi(stringInts[3])
+			Check(err)
+			destinationStack, err := strconv.Atoi(stringInts[5])
+			Check(err)
+			instructions = append(instructions, CrateInstructions{NumberOfCrates: numberOfCrates, OriginStack: originStack, DestinationStack: destinationStack})
+		} else if len(scanner.Text()) > 1 && strings.Trim(scanner.Text(), " ")[0] == '[' {
+			var j int
+			for i := 1; i < len(scanner.Text()); i += 4 {
+				j++
+				if scanner.Text()[i] != ' ' {
+					stacksInput[j] = append([]string{string(scanner.Text()[i])}, stacksInput[j]...)
+				}
+			}
+		}
+	}
+	originalStacks := make(map[int][]string)
+	for i := 1; i <= len(stacksInput); i++ {
+		originalStacks[i] = stacksInput[i]
 	}
 
 	for _, instruction := range instructions {
@@ -65,7 +61,10 @@ func Day5() {
 		fmt.Print(stacksInput[i][len(stacksInput[i])-1])
 	}
 	fmt.Println()
-	initializeStacks()
+	for i := 1; i <= len(originalStacks); i++ {
+		stacksInput[i] = originalStacks[i]
+	}
+	stacksInput = originalStacks
 	for _, instruction := range instructions {
 		var originStack []string
 		for i := 0; i < instruction.NumberOfCrates; i++ {
