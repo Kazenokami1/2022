@@ -37,6 +37,7 @@ func Day4() {
 		elf2.cleaningSectorStart, err = strconv.Atoi(string(elf2CleaningAssignments[0]))
 		Check(err)
 		elf2.cleaningSectorEnd, err = strconv.Atoi(string(elf2CleaningAssignments[1]))
+		Check(err)
 		elfPairs = append(elfPairs, []elf{elf1, elf2})
 	}
 	var fullyOverlappedPairs int

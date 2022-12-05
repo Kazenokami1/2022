@@ -18,3 +18,9 @@ type rucksack struct {
 	Compartment2 string
 	Items        string
 }
+
+type CrateInstructions struct {
+	NumberOfCrates   int
+	OriginStack      int
+	DestinationStack int
+}
