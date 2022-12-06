@@ -27,10 +27,10 @@ func Day3() {
 	Check(err)
 	defer f.Close()
 
-	var rucksacks []rucksack
+	var rucksacks []Rucksack
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		var rucksack rucksack
+		var rucksack Rucksack
 		rucksack.Items = scanner.Text()
 		compartmentsize := len(rucksack.Items) / 2
 		rucksack.Compartment1 = rucksack.Items[0:compartmentsize]

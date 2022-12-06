@@ -20,7 +20,7 @@ func Day1() {
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
-	var elves []elf
+	var elves []Elf
 	var meals []int
 	for scanner.Scan() {
 		if scanner.Text() != "" {
@@ -28,23 +28,23 @@ func Day1() {
 			Check(err)
 			meals = append(meals, meal)
 		} else {
-			var elf elf
-			elf.meals = meals
+			var elf Elf
+			elf.Meals = meals
 			elf.calcTotalCalories()
 			elves = append(elves, elf)
 			meals = []int{}
 		}
 	}
 	//Should figure out a better way to get the last elf added to my array
-	var elf elf
-	elf.meals = meals
+	var elf Elf
+	elf.Meals = meals
 	elf.calcTotalCalories()
 	elves = append(elves, elf)
 	var highestCalories int
 	//Part 1 Answer
 	for _, elf := range elves {
-		if elf.totalCalories > highestCalories {
-			highestCalories = elf.totalCalories
+		if elf.TotalCalories > highestCalories {
+			highestCalories = elf.TotalCalories
 		}
 	}
 	fmt.Println("Day1 Puzzle Solutions:")
@@ -52,7 +52,7 @@ func Day1() {
 	fmt.Println()
 	var totalCaloriesPerElf []int
 	for _, elf := range elves {
-		totalCaloriesPerElf = append(totalCaloriesPerElf, elf.totalCalories)
+		totalCaloriesPerElf = append(totalCaloriesPerElf, elf.TotalCalories)
 	}
 	sort.Ints(totalCaloriesPerElf)
 	var top3Calories int

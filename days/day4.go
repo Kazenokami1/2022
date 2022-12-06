@@ -22,34 +22,34 @@ func Day4() {
 	Check(err)
 	defer f.Close()
 
-	var elfPairs [][]elf
+	var elfPairs [][]Elf
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		var elf1 elf
-		var elf2 elf
+		var elf1 Elf
+		var elf2 Elf
 		cleaningAssignments := strings.Split(scanner.Text(), ",")
 		elf1CleaningAssignments := strings.Split(cleaningAssignments[0], "-")
-		elf1.cleaningSectorStart, err = strconv.Atoi(string(elf1CleaningAssignments[0]))
+		elf1.CleaningSectorStart, err = strconv.Atoi(string(elf1CleaningAssignments[0]))
 		Check(err)
-		elf1.cleaningSectorEnd, err = strconv.Atoi(string(elf1CleaningAssignments[1]))
+		elf1.CleaningSectorEnd, err = strconv.Atoi(string(elf1CleaningAssignments[1]))
 		Check(err)
 		elf2CleaningAssignments := strings.Split(cleaningAssignments[1], "-")
-		elf2.cleaningSectorStart, err = strconv.Atoi(string(elf2CleaningAssignments[0]))
+		elf2.CleaningSectorStart, err = strconv.Atoi(string(elf2CleaningAssignments[0]))
 		Check(err)
-		elf2.cleaningSectorEnd, err = strconv.Atoi(string(elf2CleaningAssignments[1]))
+		elf2.CleaningSectorEnd, err = strconv.Atoi(string(elf2CleaningAssignments[1]))
 		Check(err)
-		elfPairs = append(elfPairs, []elf{elf1, elf2})
+		elfPairs = append(elfPairs, []Elf{elf1, elf2})
 	}
 	var fullyOverlappedPairs int
 	var partialOverlappedPairs int
 	for _, elfPair := range elfPairs {
-		if elfPair[0].cleaningSectorStart >= elfPair[1].cleaningSectorStart && elfPair[0].cleaningSectorEnd <= elfPair[1].cleaningSectorEnd {
+		if elfPair[0].CleaningSectorStart >= elfPair[1].CleaningSectorStart && elfPair[0].CleaningSectorEnd <= elfPair[1].CleaningSectorEnd {
 			fullyOverlappedPairs++
-		} else if elfPair[1].cleaningSectorStart >= elfPair[0].cleaningSectorStart && elfPair[1].cleaningSectorEnd <= elfPair[0].cleaningSectorEnd {
+		} else if elfPair[1].CleaningSectorStart >= elfPair[0].CleaningSectorStart && elfPair[1].CleaningSectorEnd <= elfPair[0].CleaningSectorEnd {
 			fullyOverlappedPairs++
-		} else if elfPair[0].cleaningSectorStart >= elfPair[1].cleaningSectorStart && elfPair[0].cleaningSectorStart <= elfPair[1].cleaningSectorEnd {
+		} else if elfPair[0].CleaningSectorStart >= elfPair[1].CleaningSectorStart && elfPair[0].CleaningSectorStart <= elfPair[1].CleaningSectorEnd {
 			partialOverlappedPairs++
-		} else if elfPair[1].cleaningSectorStart >= elfPair[0].cleaningSectorStart && elfPair[1].cleaningSectorStart <= elfPair[0].cleaningSectorEnd {
+		} else if elfPair[1].CleaningSectorStart >= elfPair[0].CleaningSectorStart && elfPair[1].CleaningSectorStart <= elfPair[0].CleaningSectorEnd {
 			partialOverlappedPairs++
 		}
 	}
