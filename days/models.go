@@ -37,13 +37,10 @@ func (hhd *HandHeldDevice) findMessageStart(datastream string, uniqueChars int) 
 		if i == 0 {
 			packets += string(packet)
 		} else {
-			if strings.Contains(packets, string(packet)) {
-				for j, char := range packets {
-					if packet == char {
-						packets += string(packet)
-						packets = packets[j+1:]
-					}
-				}
+			duplicateIndex := strings.Index(packets, string(packet))
+			if duplicateIndex != -1 {
+				packets += string(packet)
+				packets = packets[duplicateIndex+1:]
 			} else {
 				packets += string(packet)
 				if len(packets) == uniqueChars {
