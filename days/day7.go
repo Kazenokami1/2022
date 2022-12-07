@@ -26,35 +26,38 @@ func Day7() {
 		terminalOutput = append(terminalOutput, strings.Split(scanner.Text(), " "))
 	}
 	var directories []*Directory
-	var directoryTree []*Directory
 	var currentDir *Directory
 	for _, output := range terminalOutput {
 		if output[0] == "$" {
 			if output[1] == "ls" {
 				continue
 			} else if output[2] != ".." {
-				currentDir = &Directory{Name: output[2]}
+				if output[2] == "/" {
+					currentDir = &Directory{Name: output[2]}
+				} else {
+					for _, dir := range currentDir.Directories {
+						if dir.Name == output[2] {
+							currentDir = dir
+							break
+						}
+					}
+				}
 				directories = append(directories, currentDir)
-				directoryTree = append(directoryTree, currentDir)
 			} else {
-				directoryTree = directoryTree[:len(directoryTree)-1]
 				currentDir.calcDirectorySize()
-				directoryTree[len(directoryTree)-1].Directories = append(directoryTree[len(directoryTree)-1].Directories, currentDir)
-				currentDir = directoryTree[len(directoryTree)-1]
+				currentDir = currentDir.Parent
 			}
 		} else if output[0] == "dir" {
-			currentDir.Directories = append(currentDir.Directories, &Directory{Name: output[1]})
+			currentDir.Directories = append(currentDir.Directories, &Directory{Name: output[1], Parent: currentDir})
 		} else {
 			size, err := strconv.Atoi(output[0])
 			Check(err)
 			currentDir.Files = append(currentDir.Files, &File{Name: output[1], Size: size})
 		}
 	}
-	for currentDir != directoryTree[0] {
-		directoryTree = directoryTree[:len(directoryTree)-1]
+	for currentDir.Parent != nil {
 		currentDir.calcDirectorySize()
-		directoryTree[len(directoryTree)-1].Directories = append(directoryTree[len(directoryTree)-1].Directories, currentDir)
-		currentDir = directoryTree[len(directoryTree)-1]
+		currentDir = currentDir.Parent
 	}
 	currentDir.calcDirectorySize()
 	var sum int

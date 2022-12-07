@@ -54,6 +54,7 @@ func (hhd *HandHeldDevice) findMessageStart(datastream string, uniqueChars int) 
 
 type Directory struct {
 	Name        string
+	Parent      *Directory
 	Directories []*Directory
 	Files       []*File
 	TotalSize   int
