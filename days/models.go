@@ -51,3 +51,26 @@ func (hhd *HandHeldDevice) findMessageStart(datastream string, uniqueChars int) 
 	}
 	return 0
 }
+
+type Directory struct {
+	Name        string
+	Directories []*Directory
+	Files       []*File
+	TotalSize   int
+}
+
+func (d *Directory) calcDirectorySize() {
+	var size int
+	for _, dir := range d.Directories {
+		size += dir.TotalSize
+	}
+	for _, file := range d.Files {
+		size += file.Size
+	}
+	d.TotalSize = size
+}
+
+type File struct {
+	Name string
+	Size int
+}
