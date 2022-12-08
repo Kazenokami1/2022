@@ -75,3 +75,21 @@ type File struct {
 	Name string
 	Size int
 }
+
+type Tree struct {
+	Height       int
+	Visible      bool
+	VisibleEast  bool
+	VisibleWest  bool
+	VisibleNorth bool
+	VisibleSouth bool
+	ViewEast     int
+	ViewWest     int
+	ViewNorth    int
+	ViewSouth    int
+	ScenicScore  int
+}
+
+func (t *Tree) calcScenicScore() {
+	t.ScenicScore = t.ViewEast * t.ViewNorth * t.ViewSouth * t.ViewWest
+}
