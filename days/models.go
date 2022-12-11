@@ -1,6 +1,8 @@
 package days
 
-import "strings"
+import (
+	"strings"
+)
 
 type Elf struct {
 	Meals               []int
@@ -28,7 +30,10 @@ type CrateInstructions struct {
 }
 
 type HandHeldDevice struct {
-	Messages []string
+	Messages      []string
+	Cycles        int
+	XRegister     int
+	ScreenDisplay [6]string
 }
 
 func (hhd *HandHeldDevice) findMessageStart(datastream string, uniqueChars int) int {
@@ -50,6 +55,25 @@ func (hhd *HandHeldDevice) findMessageStart(datastream string, uniqueChars int) 
 		}
 	}
 	return 0
+}
+
+func (hhd *HandHeldDevice) performCPUOperation(command string, xRegister int) {
+	if command == "noop" {
+		hhd.Cycles++
+	} else if command == "addx" {
+		hhd.Cycles += 2
+		hhd.XRegister += xRegister
+	}
+}
+
+func (hhd *HandHeldDevice) addScreenPixel(runTime int) {
+	cycles := hhd.Cycles + runTime
+	screenRow := cycles / 40
+	if hhd.XRegister-1 == cycles%40 || hhd.XRegister == cycles%40 || hhd.XRegister+1 == cycles%40 {
+		hhd.ScreenDisplay[screenRow] += "#"
+	} else {
+		hhd.ScreenDisplay[screenRow] += "."
+	}
 }
 
 type Directory struct {
