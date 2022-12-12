@@ -45,10 +45,10 @@ func Day9() {
 	}
 	fmt.Println("Day 9 Puzzle Solution:")
 	fmt.Printf("Part 1: The tail visited %d steps\n", len(bridgeSteps))
-	part2(moveList)
+	day9part2(moveList)
 }
 
-func part2(moveList []string) {
+func day9part2(moveList []string) {
 	bridgeSteps = make(map[string]interface{})
 	bridgeSteps[fmt.Sprint(0)+","+fmt.Sprint(0)] = nil
 	var knots [][]int

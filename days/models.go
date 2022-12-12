@@ -1,6 +1,7 @@
 package days
 
 import (
+	"strconv"
 	"strings"
 )
 
@@ -116,4 +117,43 @@ type Tree struct {
 
 func (t *Tree) calcScenicScore() {
 	t.ScenicScore = t.ViewEast * t.ViewNorth * t.ViewSouth * t.ViewWest
+}
+
+type Monkey struct {
+	Number         int
+	Items          []int
+	Operation      string
+	Test           []string
+	ThrowOnTrue    *Monkey
+	ThrowOnFalse   *Monkey
+	ItemsInspected int
+}
+
+func (m *Monkey) playRound(roundNumber int, part int, lcm int) {
+	for _, item := range m.Items {
+		var newItem int
+		operation := strings.Split(m.Operation, " ")
+		value2, err := strconv.Atoi(operation[1])
+		if err != nil {
+			newItem = performArithmetic(operation[0], item, item)
+		} else {
+			newItem = performArithmetic(operation[0], item, value2)
+		}
+		if part == 1 {
+			newItem = newItem / 3
+		} else {
+			newItem = newItem % lcm
+		}
+		test := strings.Split(m.Test[0], "divisible by ")
+		value2, err = strconv.Atoi(test[1])
+		Check(err)
+		testStatus := performArithmetic("%", newItem, value2)
+		if testStatus == 0 {
+			m.ThrowOnTrue.Items = append(m.ThrowOnTrue.Items, newItem)
+		} else {
+			m.ThrowOnFalse.Items = append(m.ThrowOnFalse.Items, newItem)
+		}
+		m.ItemsInspected++
+	}
+	m.Items = []int{}
 }
