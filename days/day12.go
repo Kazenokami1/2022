@@ -24,11 +24,11 @@ func Day12() {
 	start, end, possibleStarts := parseInput(scanner)
 	findStepsTaken(start, end, false)
 	fmt.Println("Day 12 Puzzle Solutions:")
-	fmt.Printf("Part 1 - Shortest Path to End: %f\n", end.StepsTaken)
+	fmt.Printf("Part 1 - Shortest Path to End from Initial Start Point: %f\n", end.StepsTaken)
 	for _, possibleStart := range possibleStarts {
 		findStepsTaken(possibleStart, end, true)
 	}
-	fmt.Printf("Part 2 - Shortest Path to End from Start Point: %f\n", end.StepsTaken)
+	fmt.Printf("Part 2 - Shortest Path to End from any low point: %f\n", end.StepsTaken)
 }
 
 func parseInput(scanner *bufio.Scanner) (*GridSquare, *GridSquare, []*GridSquare) {
