@@ -157,3 +157,14 @@ func (m *Monkey) playRound(roundNumber int, part int, lcm int) {
 	}
 	m.Items = []int{}
 }
+
+type GridSquare struct {
+	Position            []int
+	Height              int
+	Start               bool
+	End                 bool
+	Visited             bool
+	AccessibleNeighbors []*GridSquare
+	StepsTaken          float64
+	PossibleStart       bool
+}
