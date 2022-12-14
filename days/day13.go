@@ -9,10 +9,6 @@ import (
 	"strings"
 )
 
-func Split(r rune) bool {
-	return r == ',' || r == '[' || r == ']'
-}
-
 func Day13() {
 	var fileName string
 	if os.Getenv("MODE") == "TEST" {
