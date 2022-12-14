@@ -87,12 +87,9 @@ func pourSand(passedRockMap map[string]string, minX, maxX, maxY float64, part2 b
 		rockFillMap[k] = v
 	}
 	if part2 {
-		minX -= 1000
-		maxX += 1000
+		minX = math.Inf(-1)
+		maxX = math.Inf(1)
 		maxY += 2
-		for i := minX; i <= maxX; i++ {
-			rockFillMap[fmt.Sprint(i)+","+fmt.Sprint(maxY)] = "rock"
-		}
 	}
 	var stop bool
 	for sandX <= maxX && sandX >= minX && sandY <= maxY && !stop {
@@ -102,7 +99,11 @@ func pourSand(passedRockMap map[string]string, minX, maxX, maxY float64, part2 b
 			checkDown := fmt.Sprint(sandLocation[0]) + "," + fmt.Sprint(sandLocation[1]+1)
 			checkDownLeft := fmt.Sprint(sandLocation[0]-1) + "," + fmt.Sprint(sandLocation[1]+1)
 			checkDownRight := fmt.Sprint(sandLocation[0]+1) + "," + fmt.Sprint(sandLocation[1]+1)
-			if sandLocation[0] < minX || sandLocation[0] > maxX || sandLocation[1] > maxY {
+			if sandLocation[1] == maxY-1 && part2 {
+				sandFalling = false
+				rockFillMap[fmt.Sprint(sandLocation[0])+","+fmt.Sprint(sandLocation[1])] = "sand"
+				unitsOfSand++
+			} else if sandLocation[0] < minX || sandLocation[0] > maxX || sandLocation[1] > maxY && !part2 {
 				sandFalling = false
 				sandX = sandLocation[0]
 				sandY = sandLocation[1]
