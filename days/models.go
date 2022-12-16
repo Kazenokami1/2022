@@ -168,3 +168,10 @@ type GridSquare struct {
 	StepsTaken          float64
 	PossibleStart       bool
 }
+
+type Sensor struct {
+	Position                [2]float64
+	ClosestBeacon           [2]float64
+	DistanceToClosestBeacon float64
+	XValuesPerYCovered      map[float64][2]float64
+}
