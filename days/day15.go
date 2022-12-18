@@ -7,12 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"unicode"
 )
-
-func Split(r rune) bool {
-	return !unicode.IsNumber(r) && r != '-'
-}
 
 func Day15() {
 	var fileName string
@@ -38,7 +33,7 @@ func Day15() {
 	var sensors []Sensor
 	gridSquares := make(map[[2]float64]string)
 	for scanner.Scan() {
-		coordinates := strings.FieldsFunc(scanner.Text(), Split)
+		coordinates := strings.FieldsFunc(scanner.Text(), SplitOnNumber)
 		var coordinateFloats []float64
 		for _, value := range coordinates {
 			number, err := strconv.ParseFloat(value, 64)
@@ -103,6 +98,7 @@ func Day15() {
 			}
 		}
 	}
+	//Note: This only works IF the row doesn't contain an unknown spot
 	for x := xValues[0]; x <= xValues[1]; x++ {
 		_, ok := gridSquares[[2]float64{x, part1Row}]
 		if !ok {

@@ -175,3 +175,12 @@ type Sensor struct {
 	DistanceToClosestBeacon float64
 	XValuesPerYCovered      map[float64][2]float64
 }
+
+type Valve struct {
+	Name            string
+	Rate            int
+	Tunnels         []string
+	ConnectedValves []*Valve
+	TimeValveOpened int
+	Open            bool
+}

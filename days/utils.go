@@ -1,6 +1,9 @@
 package days
 
-import "math"
+import (
+	"math"
+	"unicode"
+)
 
 func Check(e error) {
 	if e != nil {
@@ -26,4 +29,8 @@ func performArithmetic(operand string, value1 int, value2 int) int {
 
 func findManhattanDistance(point1, point2 [2]float64) float64 {
 	return math.Abs(point1[0]-point2[0]) + math.Abs(point1[1]-point2[1])
+}
+
+func SplitOnNumber(r rune) bool {
+	return !unicode.IsNumber(r) && r != '-'
 }
