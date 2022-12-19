@@ -128,7 +128,6 @@ func Day18() {
 		surfaceArea = surfaceArea + 6 - len(cube.ConnectedCubes)
 	}
 	fmt.Printf("Total Exterior Surface Area: %d\n", surfaceArea)
-	fmt.Println("3540 is too High")
 }
 
 func determineAirCubes(cube *DropletCube, airCubes map[[3]int]*DropletCube) {
