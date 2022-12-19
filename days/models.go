@@ -184,3 +184,8 @@ type Valve struct {
 	TimeValveOpened int
 	Open            bool
 }
+
+type DropletCube struct {
+	Position       [3]int
+	ConnectedCubes []*DropletCube
+}
