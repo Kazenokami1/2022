@@ -25,7 +25,7 @@ func (d Days) Day16() { days.Day16() }
 func (d Days) Day17() { days.Day17() }
 func (d Days) Day18() { days.Day18() }
 func (d Days) Day19() {}
-func (d Days) Day20() {}
+func (d Days) Day20() { days.Day20() }
 func (d Days) Day21() {}
 func (d Days) Day22() {}
 func (d Days) Day23() {}
