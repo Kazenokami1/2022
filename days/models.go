@@ -131,27 +131,27 @@ type Monkey struct {
 
 func (m *Monkey) playRound(roundNumber int, part int, lcm int) {
 	for _, item := range m.Items {
-		var newItem int
+		var newItem float64
 		operation := strings.Split(m.Operation, " ")
 		value2, err := strconv.Atoi(operation[1])
 		if err != nil {
-			newItem = performArithmetic(operation[0], item, item)
+			newItem = performArithmetic(operation[0], float64(item), float64(item))
 		} else {
-			newItem = performArithmetic(operation[0], item, value2)
+			newItem = performArithmetic(operation[0], float64(item), float64(value2))
 		}
 		if part == 1 {
 			newItem = newItem / 3
 		} else {
-			newItem = newItem % lcm
+			newItem = float64(int(newItem) % lcm)
 		}
 		test := strings.Split(m.Test[0], "divisible by ")
 		value2, err = strconv.Atoi(test[1])
 		Check(err)
-		testStatus := performArithmetic("%", newItem, value2)
+		testStatus := performArithmetic("%", float64(newItem), float64(value2))
 		if testStatus == 0 {
-			m.ThrowOnTrue.Items = append(m.ThrowOnTrue.Items, newItem)
+			m.ThrowOnTrue.Items = append(m.ThrowOnTrue.Items, int(newItem))
 		} else {
-			m.ThrowOnFalse.Items = append(m.ThrowOnFalse.Items, newItem)
+			m.ThrowOnFalse.Items = append(m.ThrowOnFalse.Items, int(newItem))
 		}
 		m.ItemsInspected++
 	}
