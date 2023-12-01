@@ -24,10 +24,10 @@ func (d Days) Day15() { days.Day15() }
 func (d Days) Day16() { days.Day16() }
 func (d Days) Day17() { days.Day17() }
 func (d Days) Day18() { days.Day18() }
-func (d Days) Day19() {}
+func (d Days) Day19() { days.Day19() }
 func (d Days) Day20() { days.Day20() }
 func (d Days) Day21() { days.Day21() }
-func (d Days) Day22() {}
-func (d Days) Day23() {}
-func (d Days) Day24() {}
-func (d Days) Day25() {}
+func (d Days) Day22() { days.Day22() }
+func (d Days) Day23() { days.Day23() }
+func (d Days) Day24() { days.Day24() }
+func (d Days) Day25() { days.Day25() }

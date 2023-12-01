@@ -35,6 +35,10 @@ func SplitOnNumber(r rune) bool {
 	return !unicode.IsNumber(r) && r != '-'
 }
 
+func SplitOnNonNumber(r rune) bool {
+	return unicode.IsNumber(r)
+}
+
 func SplitOnOperatorOrSpace(r rune) bool {
 	if r == '+' || r == '-' || r == '*' || r == '/' || r == ' ' {
 		return true
